@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Hardware Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f9fcff;
+      border: 1px solid #dce7f1;
+      border-radius: 10px;
+    }
+
+    .question p {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .options label {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background-color: #f1f1f1;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .options label:hover {
+      background-color: #e6f0ff;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #28a745;
+    }
+
+    .correct {
+      background-color: #d4edda !important;
+      border-color: #28a745 !important;
+    }
+
+    .wrong {
+      background-color: #f8d7da !important;
+      border-color: #dc3545 !important;
+    }
+    @media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .question p {
+    font-size: 16px;
+  }
+
+  .options label {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .submit-btn {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .result {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .question {
+    padding: 15px;
+  }
+
+  .question p {
+    font-size: 15px;
+  }
+
+  .options label {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .submit-btn {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .result {
+    font-size: 16px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💻 Advanced Hardware Quiz</h1>
+    <form id="quizForm"></form>
+    <button class="submit-btn" onclick="submitQuiz(event)">Submit Quiz</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const quizData = {
+      questions: [
+        {
+          question: "Which of the following CPU sockets is compatible with Intel's 12th Gen Alder Lake processors?",
+          options: ["A) LGA 1151", "B) AM4", "C) LGA 1700", "D) TR4"],
+          correctAnswer: "C"
+        },
+        {
+          question: "What does ECC memory stand for, and why is it used?",
+          options: [
+            "A) Enhanced Code Correction – For faster read speeds",
+            "B) Error Checking and Correction – For data integrity in servers",
+            "C) Encrypted Code Channel – For secure memory access",
+            "D) Electrical Current Control – For power management"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "Which of the following best describes the function of a Northbridge chip on a traditional motherboard?",
+          options: [
+            "A) Handles power delivery to the CPU",
+            "B) Manages USB and peripheral devices",
+            "C) Connects the CPU to high-speed components like RAM and GPU",
+            "D) Controls cooling fans and temperature sensors"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "NVMe SSDs connect via which type of interface for maximum performance?",
+          options: ["A) SATA III", "B) USB 3.1", "C) PCIe", "D) SAS"],
+          correctAnswer: "C"
+        },
+        {
+          question: "Which type of RAM is used in modern desktop computers?",
+          options: ["A) DDR2", "B) DDR3", "C) DDR4", "D) DDR5"],
+          correctAnswer: "D"
+        },
+        {
+          question: "Which of the following expansion slots offers the highest bandwidth?",
+          options: ["A) PCI", "B) AGP", "C) PCIe x16", "D) ISA"],
+          correctAnswer: "C"
+        },
+        {
+          question: "Which instruction set architecture is used by modern Intel and AMD processors?",
+          options: ["A) ARM", "B) RISC", "C) CISC", "D) MIPS"],
+          correctAnswer: "C"
+        },
+        {
+          question: "In power supplies, what does an 80 PLUS Platinum rating signify?",
+          options: [
+            "A) 80% efficiency at 100% load",
+            "B) 92%+ efficiency at 50% load",
+            "C) The PSU is made of platinum",
+            "D) It supports only platinum-rated components"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "Which RAID level provides mirroring and parity for both fault tolerance and performance?",
+          options: ["A) RAID 0", "B) RAID 1", "C) RAID 5", "D) RAID 10"],
+          correctAnswer: "D"
+        },
+        {
+          question: "What is the main advantage of using a modular power supply unit (PSU)?",
+          options: [
+            "A) It provides more power",
+            "B) It has faster startup time",
+            "C) It allows custom cable management and better airflow",
+            "D) It increases overclocking potential"
+          ],
+          correctAnswer: "C"
+        }
+      ]
+    };
+
+    const form = document.getElementById("quizForm");
+
+    quizData.questions.forEach((q, index) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.classList.add("question");
+      questionDiv.id = `question${index}`;
+
+      const questionText = document.createElement("p");
+      questionText.textContent = `${index + 1}. ${q.question}`;
+      questionDiv.appendChild(questionText);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.classList.add("options");
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.setAttribute("data-value", option.charAt(0));
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `question${index}`;
+        input.value = option.charAt(0);
+
+        const optionSpan = document.createElement("span");
+        optionSpan.textContent = ` ${option}`;
+
+        label.appendChild(input);
+        label.appendChild(optionSpan);
+        optionsDiv.appendChild(label);
+      });
+
+      questionDiv.appendChild(optionsDiv);
+      form.appendChild(questionDiv);
+    });
+
+    function submitQuiz(event) {
+      event.preventDefault();
+      let score = 0;
+
+      quizData.questions.forEach((question, index) => {
+        const selected = document.querySelector(`input[name='question${index}']:checked`);
+        const labels = document.querySelectorAll(`#question${index} .options label`);
+        const correct = question.correctAnswer;
+
+        labels.forEach(label => {
+          const value = label.getAttribute("data-value");
+          label.classList.remove("correct", "wrong");
+
+          if (value === correct) {
+            label.classList.add("correct");
+          }
+
+          if (selected && selected.value === value && value !== correct) {
+            label.classList.add("wrong");
+          }
+        });
+
+        if (selected && selected.value === correct) {
+          score++;
+        }
+      });
+
+      document.getElementById("result").textContent = `✅ You scored ${score} out of ${quizData.questions.length}`;
+    }
+  </script>
+</body>
+</html>

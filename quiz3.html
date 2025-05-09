@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Basic Hardware Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f9fcff;
+      border: 1px solid #dce7f1;
+      border-radius: 10px;
+    }
+
+    .question p {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .options label {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background-color: #f1f1f1;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .options label:hover {
+      background-color: #e6f0ff;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #28a745;
+    }
+
+    .correct {
+      background-color: #d4edda !important;
+      border-color: #28a745 !important;
+    }
+
+    .wrong {
+      background-color: #f8d7da !important;
+      border-color: #dc3545 !important;
+    }
+   
+  /* ... existing styles ... */
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    .question p {
+      font-size: 16px;
+    }
+
+    .options label {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+
+    .submit-btn {
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    .result {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 15px;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    .question {
+      padding: 15px;
+    }
+
+    .question p {
+      font-size: 15px;
+    }
+
+    .options label {
+      font-size: 13px;
+      padding: 8px;
+    }
+
+    .submit-btn {
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    .result {
+      font-size: 16px;
+    }
+  }
+</style>
+
+  
+</head>
+<body>
+  <div class="container">
+    <h1>💻 Basic Hardware Quiz</h1>
+    <form id="quizForm"></form>
+    <button class="submit-btn" onclick="submitQuiz(event)">Submit Quiz</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const quizData = {
+      questions: [
+        {
+          question: "What does CPU stand for?",
+          options: [
+            "A) Central Performance Unit",
+            "B) Control Processing Unit",
+            "C) Central Processing Unit",
+            "D) Core Processing Unit"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: 'Which component is considered the "brain" of the computer?',
+          options: [
+            "A) RAM",
+            "B) SSD",
+            "C) CPU",
+            "D) GPU"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What type of memory is volatile?",
+          options: [
+            "A) ROM",
+            "B) RAM",
+            "C) SSD",
+            "D) HDD"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "What does GPU stand for?",
+          options: [
+            "A) General Processing Unit",
+            "B) Graphics Processing Unit",
+            "C) Graphics Performance Utility",
+            "D) General Purpose Unit"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "What is the function of a motherboard?",
+          options: [
+            "A) Store data permanently",
+            "B) Connect all hardware components",
+            "C) Provide internet connectivity",
+            "D) Cool the CPU"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "Which device is used to store data permanently?",
+          options: [
+            "A) RAM",
+            "B) ROM",
+            "C) Hard Disk Drive",
+            "D) Cache"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What type of port is used to connect a monitor to a computer?",
+          options: [
+            "A) USB",
+            "B) HDMI",
+            "C) Ethernet",
+            "D) Audio Jack"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "Which one is not a storage device?",
+          options: [
+            "A) SSD",
+            "B) RAM",
+            "C) Flash Drive",
+            "D) CD"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "What is the primary function of the power supply unit (PSU)?",
+          options: [
+            "A) Cool the system",
+            "B) Transfer data",
+            "C) Convert AC to DC and power components",
+            "D) Store data"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "Which of these is an input device?",
+          options: [
+            "A) Printer",
+            "B) Speaker",
+            "C) Monitor",
+            "D) Keyboard"
+          ],
+          correctAnswer: "D"
+        }
+      ]
+    };
+
+    const form = document.getElementById("quizForm");
+
+    quizData.questions.forEach((q, index) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.classList.add("question");
+      questionDiv.id = `question${index}`;
+
+      const questionText = document.createElement("p");
+      questionText.textContent = `${index + 1}. ${q.question}`;
+      questionDiv.appendChild(questionText);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.classList.add("options");
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.setAttribute("data-value", option.charAt(0));
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `question${index}`;
+        input.value = option.charAt(0);
+
+        const optionSpan = document.createElement("span");
+        optionSpan.textContent = ` ${option}`;
+
+        label.appendChild(input);
+        label.appendChild(optionSpan);
+        optionsDiv.appendChild(label);
+      });
+
+      questionDiv.appendChild(optionsDiv);
+      form.appendChild(questionDiv);
+    });
+
+    function submitQuiz(event) {
+      event.preventDefault();
+      let score = 0;
+
+      quizData.questions.forEach((question, index) => {
+        const selected = document.querySelector(`input[name='question${index}']:checked`);
+        const labels = document.querySelectorAll(`#question${index} .options label`);
+        const correct = question.correctAnswer;
+
+        labels.forEach(label => {
+          const value = label.getAttribute("data-value");
+          label.classList.remove("correct", "wrong");
+
+          if (value === correct) {
+            label.classList.add("correct");
+          }
+
+          if (selected && selected.value === value && value !== correct) {
+            label.classList.add("wrong");
+          }
+        });
+
+        if (selected && selected.value === correct) {
+          score++;
+        }
+      });
+
+      document.getElementById("result").textContent = `✅ You scored ${score} out of ${quizData.questions.length}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hard Software & Hardware Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f9fcff;
+      border: 1px solid #dce7f1;
+      border-radius: 10px;
+    }
+
+    .question p {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .options label {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background-color: #f1f1f1;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .options label:hover {
+      background-color: #e6f0ff;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #28a745;
+    }
+
+    .correct {
+      background-color: #d4edda !important;
+      border-color: #28a745 !important;
+    }
+
+    .wrong {
+      background-color: #f8d7da !important;
+      border-color: #dc3545 !important;
+    }
+    @media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .question p {
+    font-size: 16px;
+  }
+
+  .options label {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .submit-btn {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .result {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .question {
+    padding: 15px;
+  }
+
+  .question p {
+    font-size: 15px;
+  }
+
+  .options label {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .submit-btn {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .result {
+    font-size: 16px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💻 Hard Software & 🧠 Hardware Quiz</h1>
+    <form id="quizForm"></form>
+    <button class="submit-btn" onclick="submitQuiz(event)">Submit Quiz</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const quizData = {
+      questions: [
+        {
+          question: "What design pattern ensures a class has only one instance and provides a global point of access to it?",
+          options: [
+            "A) Factory Pattern",
+            "B) Adapter Pattern",
+            "C) Singleton Pattern",
+            "D) Decorator Pattern"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "In memory management, what is \"thrashing\"?",
+          options: [
+            "A) When memory modules fail during execution",
+            "B) Constant swapping of pages between RAM and disk due to insufficient memory",
+            "C) When CPU overclocks RAM for performance",
+            "D) When cache memory overflows"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "What is the purpose of the CAP theorem in distributed systems?",
+          options: [
+            "A) To measure processing power",
+            "B) To balance compiler load",
+            "C) To describe trade-offs between Consistency, Availability, and Partition Tolerance",
+            "D) To define hardware scheduling protocols"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What’s the key difference between a process and a thread?",
+          options: [
+            "A) Threads can run on different machines",
+            "B) Processes share memory space; threads do not",
+            "C) Threads share process memory; processes have separate memory",
+            "D) Processes are faster than threads"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "In compiler design, what phase translates high-level code into intermediate code?",
+          options: [
+            "A) Lexical Analysis",
+            "B) Syntax Analysis",
+            "C) Semantic Analysis",
+            "D) Intermediate Code Generation"
+          ],
+          correctAnswer: "D"
+        },
+        {
+          question: "What is the primary role of the Southbridge chipset on a traditional motherboard?",
+          options: [
+            "A) Manages high-speed communication with CPU",
+            "B) Handles BIOS functions only",
+            "C) Connects peripherals like USB, SATA, and audio",
+            "D) Controls RAM speed"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What is the main advantage of using UEFI over BIOS?",
+          options: [
+            "A) It uses more power",
+            "B) It only works with SSDs",
+            "C) Faster boot times, larger drive support, and secure boot",
+            "D) BIOS has a GUI; UEFI does not"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "In which type of memory is data retained even when power is turned off?",
+          options: [
+            "A) SRAM",
+            "B) DRAM",
+            "C) EEPROM",
+            "D) Cache"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What is the purpose of the clock signal in a CPU?",
+          options: [
+            "A) To power the CPU",
+            "B) To store data",
+            "C) To synchronize operations and instruction execution",
+            "D) To cool the CPU"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What does PCIe Gen4 x16 provide in terms of data transfer speed?",
+          options: [
+            "A) 4 GB/s",
+            "B) 16 GB/s",
+            "C) 32 GB/s",
+            "D) 64 GB/s"
+          ],
+          correctAnswer: "C"
+        }
+      ]
+    };
+
+    const form = document.getElementById("quizForm");
+
+    quizData.questions.forEach((q, index) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.classList.add("question");
+      questionDiv.id = `question${index}`;
+
+      const questionText = document.createElement("p");
+      questionText.textContent = `${index + 1}. ${q.question}`;
+      questionDiv.appendChild(questionText);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.classList.add("options");
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.setAttribute("data-value", option.charAt(0));
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `question${index}`;
+        input.value = option.charAt(0);
+
+        const optionSpan = document.createElement("span");
+        optionSpan.textContent = ` ${option}`;
+
+        label.appendChild(input);
+        label.appendChild(optionSpan);
+        optionsDiv.appendChild(label);
+      });
+
+      questionDiv.appendChild(optionsDiv);
+      form.appendChild(questionDiv);
+    });
+
+    function submitQuiz(event) {
+      event.preventDefault();
+      let score = 0;
+
+      quizData.questions.forEach((question, index) => {
+        const selected = document.querySelector(`input[name='question${index}']:checked`);
+        const labels = document.querySelectorAll(`#question${index} .options label`);
+        const correct = question.correctAnswer;
+
+        labels.forEach(label => {
+          const value = label.getAttribute("data-value");
+          label.classList.remove("correct", "wrong");
+
+          if (value === correct) {
+            label.classList.add("correct");
+          }
+
+          if (selected && selected.value === value && value !== correct) {
+            label.classList.add("wrong");
+          }
+        });
+
+        if (selected && selected.value === correct) {
+          score++;
+        }
+      });
+
+      document.getElementById("result").textContent = `✅ You scored ${score} out of ${quizData.questions.length}`;
+    }
+  </script>
+</body>
+</html>

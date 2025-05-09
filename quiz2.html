@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Software Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f9fcff;
+      border: 1px solid #dce7f1;
+      border-radius: 10px;
+    }
+
+    .question p {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .options label {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background-color: #f1f1f1;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .options label:hover {
+      background-color: #e6f0ff;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #28a745;
+    }
+
+    .correct {
+      background-color: #d4edda !important;
+      border-color: #28a745 !important;
+    }
+
+    .wrong {
+      background-color: #f8d7da !important;
+      border-color: #dc3545 !important;
+    }
+    
+  /* ... existing styles ... */
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    .question p {
+      font-size: 16px;
+    }
+
+    .options label {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+
+    .submit-btn {
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    .result {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 15px;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    .question {
+      padding: 15px;
+    }
+
+    .question p {
+      font-size: 15px;
+    }
+
+    .options label {
+      font-size: 13px;
+      padding: 8px;
+    }
+
+    .submit-btn {
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    .result {
+      font-size: 16px;
+    }
+  }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 Advanced Software Quiz</h1>
+    <form id="quizForm"></form>
+    <button class="submit-btn" onclick="submitQuiz(event)">Submit Quiz</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const quizData = {
+      questions: [
+        {
+          question: "In software development, what does the acronym SOLID stand for?",
+          options: [
+            "A) Secure, Optimized, Light, Integrated, Dynamic",
+            "B) Single responsibility, Open/closed, Liskov substitution, Interface segregation, Dependency inversion",
+            "C) Static, Object-oriented, Layered, Isolated, Design-patterned",
+            "D) Structured, Optimized, Logical, Incremental, Declarative"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "Which scheduling algorithm is most optimal in minimizing average waiting time, but can lead to starvation?",
+          options: [
+            "A) Round Robin",
+            "B) First-Come, First-Served",
+            "C) Shortest Job Next (SJN)",
+            "D) Priority Scheduling"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What is the purpose of a mutex in operating systems?",
+          options: [
+            "A) To increase thread speed",
+            "B) To synchronize access to shared resources",
+            "C) To allocate memory",
+            "D) To store thread data"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "Which of the following is true about REST APIs?",
+          options: [
+            "A) They require SOAP envelopes",
+            "B) They use only the GET method",
+            "C) They are stateless and often use JSON over HTTP",
+            "D) They require a specific port like 3306"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "In object-oriented programming, what is polymorphism?",
+          options: [
+            "A) Hiding implementation details",
+            "B) The ability to inherit from multiple classes",
+            "C) Having multiple methods with the same name but different implementations",
+            "D) Defining a class once and never modifying it"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "What is the main goal of software refactoring?",
+          options: [
+            "A) Increase software size",
+            "B) Fix runtime errors",
+            "C) Improve internal structure without changing external behavior",
+            "D) Make code faster regardless of structure"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "Which of these is a non-functional requirement in software?",
+          options: [
+            "A) User login functionality",
+            "B) Data export feature",
+            "C) Load time under 2 seconds",
+            "D) Search bar capability"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "In database transactions, what does the 'I' in ACID stand for?",
+          options: [
+            "A) Initialization",
+            "B) Isolation",
+            "C) Inheritance",
+            "D) Integrity"
+          ],
+          correctAnswer: "B"
+        },
+        {
+          question: "Which software model emphasizes iterative releases and customer collaboration?",
+          options: [
+            "A) Waterfall",
+            "B) Spiral",
+            "C) Agile",
+            "D) V-Model"
+          ],
+          correctAnswer: "C"
+        },
+        {
+          question: "In version control (Git), what does git rebase do?",
+          options: [
+            "A) Removes commit history",
+            "B) Deletes a branch",
+            "C) Applies changes from one branch onto another by rewriting history",
+            "D) Pulls from remote"
+          ],
+          correctAnswer: "C"
+        }
+      ]
+    };
+
+    const form = document.getElementById("quizForm");
+
+    quizData.questions.forEach((q, index) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.classList.add("question");
+      questionDiv.id = `question${index}`;
+
+      const questionText = document.createElement("p");
+      questionText.textContent = `${index + 1}. ${q.question}`;
+      questionDiv.appendChild(questionText);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.classList.add("options");
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.setAttribute("data-value", option.charAt(0));
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `question${index}`;
+        input.value = option.charAt(0);
+
+        const optionSpan = document.createElement("span");
+        optionSpan.textContent = ` ${option}`;
+
+        label.appendChild(input);
+        label.appendChild(optionSpan);
+        optionsDiv.appendChild(label);
+      });
+
+      questionDiv.appendChild(optionsDiv);
+      form.appendChild(questionDiv);
+    });
+
+    function submitQuiz(event) {
+      event.preventDefault();
+      let score = 0;
+
+      quizData.questions.forEach((question, index) => {
+        const selected = document.querySelector(`input[name='question${index}']:checked`);
+        const labels = document.querySelectorAll(`#question${index} .options label`);
+        const correct = question.correctAnswer;
+
+        labels.forEach(label => {
+          const value = label.getAttribute("data-value");
+          label.classList.remove("correct", "wrong");
+
+          if (value === correct) {
+            label.classList.add("correct");
+          }
+
+          if (selected && selected.value === value && value !== correct) {
+            label.classList.add("wrong");
+          }
+        });
+
+        if (selected && selected.value === correct) {
+          score++;
+        }
+      });
+
+      document.getElementById("result").textContent = `✅ You scored ${score} out of ${quizData.questions.length}`;
+    }
+  </script>
+</body>
+</html>
